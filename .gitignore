@@ -1,0 +1,10 @@
+11icra-tmoulard.pdf
+11icra-tmoulard.t2d/
+*~
+*.aux*
+11icra-tmoulard-figure*
+*.bbl
+*.blg
+*.gnuplot
+*.table
+*.log
