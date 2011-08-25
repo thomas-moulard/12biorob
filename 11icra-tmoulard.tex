@@ -1,0 +1,105 @@
+\documentclass[conference,final]{IEEEtran}
+
+\usepackage{flushend}
+
+\usepackage{cite}
+
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  \graphicspath{images/}
+\else
+  \usepackage[dvips]{graphicx}
+  \graphicspath{images/}
+\fi
+
+\usepackage[cmex10]{amsmath}
+\usepackage{amsfonts}
+\usepackage{array}
+
+\usepackage{url}
+
+\usepackage{algorithmic, algorithm}
+
+\usepackage{placeins}
+
+\usepackage{tikz, pgfplots}
+
+\usetikzlibrary{patterns}
+\usetikzlibrary{external}
+\tikzexternalize
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+%\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+\title{Trajectory Following for Legged Robots}
+
+\author{ \parbox{3 in}{\centering Thomas Moulard, Florent Lamiraux\\
+    LAAS-CNRS, Universit\'e de Toulouse\\
+    7, avenue du Colonel Roche\\
+    31077 Toulouse cedex 4, France\\
+    {\tt\small thomas.moulard@laas.fr}}
+  \hspace*{0.5 in}
+  \parbox{3 in}{ \centering Olivier Stasse\\
+    CNRS-AIST, JRL (Joint Robotics Laboratory), UMI 3218/CRT,\\
+    Intelligent Systems Research Institute,\\
+    AIST Central 2, Umezono 1-1-1, \\
+    Tsukuba, Ibaraki 305-8568 Japan\\
+    {\tt\small olivier.stasse@aist.go.jp}}
+}
+
+
+\maketitle
+
+
+\begin{abstract}
+  While robust trajectory following is a well-studied problem on
+  mobile robots, the question of how to track accurately a trajectory
+  on a humanoid robot remains open.
+
+  This paper suggests a closed-loop trajectory tracking strategy
+  aimed at humanoid robots. Compared to approaches from mobile
+  robotics, this control scheme takes into account footsteps
+  alteration, equilibrium constraints and singularities avoidance for
+  humanoids. It provides a robust way to execute long and/or precise
+  motion with the ability of correcting on-line preplanned
+  trajectories in a very reactive manner. Results have been validated
+  on the HRP-2 humanoid platform.
+\end{abstract}
+
+\begin{IEEEkeywords}
+  Humanoid robots, Motion planning, Robot control
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+
+\input{src/introduction}
+\input{src/problem}
+\input{src/closed-loop.tex}
+\input{src/experiment.tex}
+\input{src/conclusion}
+
+%\vfill\break
+
+\section*{Acknowledgment}
+
+This work has been supported by the R-BLINK project,
+ANR-08-JCJC-0075-01.
+
+%\nocite{*}
+\bibliographystyle{latex/IEEEtran}
+\bibliography{IEEEabrv.bib,11humanoids-tmoulard.bib}
+
+\end{document}
+
+%%% Local Variables:
+%%% ispell-local-dictionary: "english"
+%%% LocalWords:
+%%% End:
+
+%%% 11humanoids-tmoulard.tex ends here
+
+

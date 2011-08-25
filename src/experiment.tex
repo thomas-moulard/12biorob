@@ -1,0 +1,101 @@
+\section{Experimental results}
+\label{exp}
+
+
+The proposed method has been validated on HRP-2 using the following
+scenarii: the robot walks in a constrained area cluttered with 3D
+obstacles. The planned motion generates steps where HRP-2 walks over
+obstacles to reach its goal.
+
+
+This experiment uses the pattern generator described by
+\cite{10icra.perrin} and the stack of tasks formalism
+\cite{09icar.mansard} to implement the control scheme. The pattern
+generator provides reference trajectories for the center of mass and
+the feet. Trajectory following tasks for these particular bodies are
+then inserted into the control framework. The solver will then realize
+implicitly the inverse geometry computations required to recompute the
+whole-body trajectory and simplifies the actual control scheme.
+
+
+\begin{figure}[ht!]
+  \begin{center}
+    \begin{tikzpicture}
+      \def\w{1.}
+      \def\h{1.}
+
+      \foreach \x in {0.,...,6.}
+      {
+        \draw (
+        \x * \w, 0.)
+        rectangle (
+        \x * \w + \w, 0. + \h);
+      }
+
+      \foreach \x in {0.,...,2.}
+      {
+        \draw (
+        \x * \w, \h)
+        rectangle (
+        \x * \w + \w, 2. * \h);
+      }
+      \foreach \x in {5.,...,6.}
+      {
+        \draw (
+        \x * \w, \h)
+        rectangle (
+        \x * \w + \w, 2. * \h);
+      }
+
+      \foreach \x in {2.,...,4.}
+      {
+        \draw (
+        \x * \w, 0.)
+        rectangle (
+        \x * \w + \w, -\h);
+      }
+
+      \filldraw[rounded corners, pattern=north east lines] (
+      0.25, 0.4)
+      rectangle (
+      0.75,1.7);
+
+      \filldraw[rounded corners, pattern=north west lines,rotate=-10] (
+      0.25, 0.4)
+      rectangle (
+      0.75,1.7);
+
+      \filldraw[rounded corners, pattern=north east lines] (
+      0.25+6., 0.4)
+      rectangle (
+      0.75+6.,1.7);
+      \filldraw[rounded corners, pattern=north west lines] (
+      0.25+6., 0.4)
+      rectangle (
+      0.75+6.,1.7);
+
+    \end{tikzpicture}
+  \end{center}
+  \caption{HRP-2 experiment scenario. On the left, the vertical
+    rectangle is the planned starting point and the rotated rectangle
+    is the real starting point. On the right, the goal point which is
+    reached independently of the initial error. \label{fig:scenario}}
+\end{figure}
+
+
+Fig.~\ref{fig:following} illustrates the experiment on the real
+robot. This experiment video is available on the
+web\footnote{\mbox{\url{http://homepages.laas.fr/tmoulard/video/11humanoids-tmoulard.mp4}}}. Fig.~\ref{fig:scenario}
+provides an overview of the scenario: the rectangle on the left
+symbolizes the initial position and the rectangle on the right the
+final position. The robot is allowed to walk on the tiles, i.e.\ the
+boxes but not outside. The starting point is perturbed to trigger a
+correction.
+
+
+\FloatBarrier
+
+%%% Local Variables:
+%%% ispell-local-dictionary: "american"
+%%% LocalWords:
+%%% End:
