@@ -2,10 +2,23 @@
 \label{exp}
 
 
+\textcolor{red}{SECTION REECRITE POUR ICRA}
+
+
 The proposed method has been validated on HRP-2 using the following
-scenarii: the robot walks in a constrained area cluttered with 3D
-obstacles. The planned motion generates steps where HRP-2 walks over
-obstacles to reach its goal.
+scenarii: the robot executes a long trajectory in an environment
+cluttered by obstacles located along the robot path. The followed path
+is a $6\text{x}4 \mathrm{m}$ square such as the position ends at its
+starting point.
+
+This setup demonstrates that the execution using this control scheme
+is precise and reliable. The robot reaches its goal position with an
+error of a few centimeters whereas open loop control schemes is off by
+more than a meter. Moreover, the control scheme is reliable: it takes
+more than a minute for the robot to reach its goal point. During that
+time, the localization precision can change, the robot position can be
+lost, \ldots The control scheme is designed to be robust toward these
+situations as illustrated by the video.
 
 
 This experiment uses the pattern generator described by
@@ -20,77 +33,72 @@ whole-body trajectory and simplifies the actual control scheme.
 
 \begin{figure}[ht!]
   \begin{center}
-    \begin{tikzpicture}
-      \def\w{1.}
-      \def\h{1.}
-
-      \foreach \x in {0.,...,6.}
-      {
-        \draw (
-        \x * \w, 0.)
-        rectangle (
-        \x * \w + \w, 0. + \h);
-      }
-
-      \foreach \x in {0.,...,2.}
-      {
-        \draw (
-        \x * \w, \h)
-        rectangle (
-        \x * \w + \w, 2. * \h);
-      }
-      \foreach \x in {5.,...,6.}
-      {
-        \draw (
-        \x * \w, \h)
-        rectangle (
-        \x * \w + \w, 2. * \h);
-      }
-
-      \foreach \x in {2.,...,4.}
-      {
-        \draw (
-        \x * \w, 0.)
-        rectangle (
-        \x * \w + \w, -\h);
-      }
-
-      \filldraw[rounded corners, pattern=north east lines] (
-      0.25, 0.4)
-      rectangle (
-      0.75,1.7);
-
-      \filldraw[rounded corners, pattern=north west lines,rotate=-10] (
-      0.25, 0.4)
-      rectangle (
-      0.75,1.7);
-
-      \filldraw[rounded corners, pattern=north east lines] (
-      0.25+6., 0.4)
-      rectangle (
-      0.75+6.,1.7);
-      \filldraw[rounded corners, pattern=north west lines] (
-      0.25+6., 0.4)
-      rectangle (
-      0.75+6.,1.7);
-
-    \end{tikzpicture}
+    \includegraphics[width=0.45\textwidth]{fig/demo.png}
   \end{center}
-  \caption{HRP-2 experiment scenario. On the left, the vertical
-    rectangle is the planned starting point and the rotated rectangle
-    is the real starting point. On the right, the goal point which is
-    reached independently of the initial error. \label{fig:scenario}}
+  \caption{HRP-2 experiment scenario. The robot position is both
+    its starting and final position. \label{fig:scenario}}
 \end{figure}
 
 
 Fig.~\ref{fig:following} illustrates the experiment on the real
 robot. This experiment video is available on the
-web\footnote{\mbox{\url{http://homepages.laas.fr/tmoulard/video/11humanoids-tmoulard.mp4}}}. Fig.~\ref{fig:scenario}
+web\footnote{\mbox{\url{http://homepages.laas.fr/tmoulard/video/11icra-tmoulard.mp4}}}. Fig.~\ref{fig:scenario}
 provides an overview of the scenario: the rectangle on the left
 symbolizes the initial position and the rectangle on the right the
-final position. The robot is allowed to walk on the tiles, i.e.\ the
-boxes but not outside. The starting point is perturbed to trigger a
-correction.
+final position.
+
+
+\begin{figure}[ht!]
+  \begin{center}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \bf{Strategy} & Replanning & Correction\\
+      \hline
+      \bf{CPU usage}          & High     & Low (real-time)\\
+      \bf{Reactivity}         & Low      & High\\
+      \bf{Position filtering} & Explicit & Implicit\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Comparison of replanning and online correction when
+    compensating for execution errors. \label{fig:comparison}}
+\end{figure}
+
+
+This work has been motivated by the previous experimental setup
+described in \cite{11humanoids.baudouin}. In this paper, fast online
+replanning is used to handle changes in the environment. Using
+replanning to absorb the drift has been considered at first but
+suffers from several drawbacks. The initial idea by using replanning
+is stating that if the planning can be accelerated enough, there is no
+need to take into account the execution errors as it can be handled by
+changing the robot starting position to its real one instead of the
+planned one and regenerating the trajectory which is yet to be
+executed. This is difficult in practice for several reasons. First
+using the localization system as an input of the planning component is
+dangerous. If the localization is bad, so will be the plan. Therefore,
+it is required to filter the robot position explicitly to ensure a
+high quality localization at every point of time. On the opposite, as
+our control scheme only modifies the next step and is bounded by a
+correction limit, a low-pass filter is implicitly applied and
+protects the control scheme from temporary erroneous
+localization. Second, if the localization is imprecise and is near an
+obstacle, the estimated position may be in collision with the
+obstacle. Even if this is possible to project the position outside of
+the obstacle, this additional step renders the replanning harder to
+implement and understand. To finish, even if fast replanning is
+possible, random planning such as RRT-based methods cannot be used
+efficiently in a real-time context. An heuristic has been defined in
+\cite{11humanoids.baudouin} indicating that when a replanning starts,
+it starts three steps after the current position so that there is a
+high probability that the planning ends before the robot executes
+this step. It means that the correction will not be reactive and that
+it may be too late when the correction is taken into account.  On the
+opposite, this control scheme could provide correction at each
+iteration of the control loop and could even modify the trajectory of
+the swinging foot during a step. This has not been implemented as the
+current strategy already provides satisfying results but it would
+definitely be an interesting enhancement for a future work.
 
 
 \FloatBarrier
