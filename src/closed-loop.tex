@@ -171,7 +171,7 @@ that the localization system may introduce in the system.
                (-0.02, 0.25)
                node[at start,left]
                {
-                 $\Delta \theta$
+                 $\Delta r_z$
                };
 
                \draw[smooth,rounded corners=1ex,<->,thick]
@@ -205,7 +205,7 @@ that the localization system may introduce in the system.
     $\mathbf{x}$ of the robot waist before and after the next
     step. Non-dotted rectangles corresponds to the robot localization
     $\mathbf{\hat{x}}$. Error w.r.t to axis X, Y and yaw rotation is
-    \mbox{$(\Delta x, \Delta y, \Delta \theta) = \delta \mathbf{x}$,
+    \mbox{$(\Delta x, \Delta y, \Delta r_z) = \delta \mathbf{x}$,
       $\gamma$} the reference trajectory and $\delta \gamma$ the
     corrected trajectory reaching the planned
     step. \label{fig:footstepreplan}}
@@ -242,7 +242,9 @@ We make the assumption that an external system provides
 \mbox{$\hat{\mathbf{x}} \in \text{SE}(2)$}, an estimation of the
 current robot position.
 
-The position error is defined by:
+If $\mathbf{x} \in \text{SE}(2)$ is the robot planned position and
+$\hat{\mathbf{x}} \in \text{SE}(2)$ the robot localization, the
+position error is defined by:
 
 \begin{equation} \label{eq:errorpos}
   \mathbf{\delta x} = \mathbf{x} . \hat{\mathbf{x}}^{-1}
