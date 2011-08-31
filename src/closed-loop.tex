@@ -15,9 +15,9 @@ composed of four components:
 \item a localization component providing an estimation of the robot
   position,
 \item an error estimation component computing the error between the
-  planned position and the perceived one,
+  planned position and the localization of the robot,
 \item and a component reshaping the planned trajectory to compensate
-  for execution errors.
+  for the above error.
 \end{enumerate}
 
 
@@ -203,11 +203,11 @@ that the localization system may introduce in the system.
   \caption{Correction of the next step due to a position error of the
     robot waist. Dotted rectangles are the planned positions
     $\mathbf{x}$ of the robot waist before and after the next
-    step. Non-dotted rectangles corresponds to the robot real
-    positions $\mathbf{\hat{x}}$. Error w.r.t to axis X, Y and yaw
-    rotation is \mbox{$(\Delta x, \Delta y, \Delta \theta) = \delta
-      \mathbf{x}$, $\gamma$} the reference trajectory and $\delta
-    \gamma$ the corrected trajectory reaching the planned
+    step. Non-dotted rectangles corresponds to the robot localization
+    $\mathbf{\hat{x}}$. Error w.r.t to axis X, Y and yaw rotation is
+    \mbox{$(\Delta x, \Delta y, \Delta \theta) = \delta \mathbf{x}$,
+      $\gamma$} the reference trajectory and $\delta \gamma$ the
+    corrected trajectory reaching the planned
     step. \label{fig:footstepreplan}}
 \end{figure}
 

@@ -9,7 +9,7 @@ legged robots, although these machines are also prone to execution
 errors while moving.
 
 \textcolor{red}{Previous experiments such as
-  \cite{11humanoids.baudouin} illustrated how imprecise can be
+  \cite{11humanoids.baudouin} illustrate how imprecise can be
   trajectory following on a humanoid robot. After executing a five
   meters long trajectory, the difference between the planned and real
   position can reach $0.4 \textrm{m}$. Such an error cannot be ignored
@@ -23,9 +23,9 @@ errors while moving.
 
 One way of indirectly tackling the problem consists of regularly
 replanning the motion of the robot from its current configuration to
-the goal. This strategy enables the robot to be reactive to
-environment changes as well as to execution
-errors~\cite{05humanoids.michel,
+the goal after localizing obstacles with respect to the robot. This
+strategy enables the robot to be reactive to environment changes as
+well as to execution errors~\cite{05humanoids.michel,
   06icra.MichelChestnut,10springer.chestnut}. On the other hand, it
 requires short planning time and induces heavy CPU load. It might even
 not be always be possible. Indeed most fast replanning schemes rely on
@@ -54,25 +54,25 @@ the movement for instance.
 
 
 Due to all these factors, validating a complex movement remains a
-computationally expensive operation which can, in the current state of
-the art, only be done off-line. Therefore, an alternative solution to
-online replanning and regeneration of the walking trajectory such as
-\cite{11icra.dimitrov, 10ar.herdt, 06icra.nishiwaki, 05humanoids.michel} is
-the continuous deformation of walking trajectories.  This combination
-of dynamic trajectories and high probability for the robot to enter in
-auto-collision makes naive correction algorithm fail which is why it
-is important to define a sound framework for trajectory following.
+computationally expensive operation. Therefore, an alternative
+solution to online replanning and regeneration of the walking
+trajectory such as \cite{11icra.dimitrov, 10ar.herdt,
+  06icra.nishiwaki, 05humanoids.michel} is the continuous deformation
+of walking trajectories.  This combination of dynamic trajectories and
+high probability for the robot to enter in auto-collision makes naive
+correction algorithm fail which is why it is important to define a
+sound framework for trajectory following.
 
 
 This paper presents a ``blink of an eye'' reshaping of the trajectory
 associated with a generic method to follow trajectories on a humanoid
-robot. These two features together provides a way to follow a
+robot. These two features together provide a way to follow a
 trajectory while compensating for errors during the movement
 execution. This opens many possible applications such as moving in
 extremely constrained environments in a reliable manner, going to
 specific places of the environment precisely, etc. Most of the state
 of the art demonstration of reactive pattern generators are, in fact,
-open loops trajectories with no sensors feedback. This work has been
+open loop trajectories with no sensors feedback. This work has been
 fully integrated into the LAAS/JRL planning and control frameworks and
 a motion capture system has been used to close the loop and evaluate
 the execution errors.

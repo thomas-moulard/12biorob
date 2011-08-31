@@ -25,9 +25,10 @@ defines the robot position. Therefore the robot configuration is:
 
 
 
-Therefore a \emph{trajectory} is a continuous function $\gamma$ associating
-each point of time of the interval \mbox{$[t_{\text{min}}, t_{\text{max}}]$}
-to a particular robot configuration \mbox{$q(t)$}:
+Therefore a \emph{trajectory} is a continuous function $\gamma$
+associating to each point of time of the interval
+\mbox{$[t_{\text{min}}, t_{\text{max}}]$} to a particular robot
+configuration \mbox{$\textbf{q}(t)$}:
 
 \begin{equation} \label{eq:traj}
   \begin{aligned}
@@ -51,12 +52,12 @@ An \emph{auto-collision} occurs when the robot collides with
 itself. The set of all configurations in autocollision is called
 \mbox{$\mathcal{Q}_{\text{col}}$}.
 
-Walking is a sequence of one or many \emph{footstep(s)}. At the beginning,
-both feet are on the floor. This phase is called \emph{double support
-  phase}. Then, a foot moves until it reaches a desired position. This
-interval of time, until the foot lies on the floor again is called a
-\emph{single support phase}. The moving foot is the \emph{swinging
-  foot}, the static foot is the \emph{support foot}.
+Walking is a sequence of one or many \emph{footstep(s)}. At the
+beginning, both feet are on the floor. This phase is called
+\emph{double support phase}. Then, a foot moves until it reaches a
+desired position. This interval of time, until the foot lies on the
+floor again is called a \emph{single support phase}. The moving foot
+is the \emph{swing foot}, the static foot is the \emph{support foot}.
 
 A footstep position is a 2D position on the plane. Steps will be
 denoted by \mbox{$S \in \text{SE}(2)$}.
@@ -75,21 +76,21 @@ would seem natural. However, this section will demonstrate that this
 naive approach is not sufficient.
 
 
-Fig.~\ref{fig:system} depicts what would be a mobile-robot closed
-loop tracking system applied to a humanoid robot. The reference
-trajectory $\gamma$ would be modified by a feedback provided by some
-external localization system integrated to the robot and prodiving an
+Fig.~\ref{fig:system} depicts what would be a mobile-robot closed loop
+tracking system applied to a humanoid robot. The reference trajectory
+$\gamma$ would be modified by a feedback provided by some external
+localization system integrated to the robot and prodiving an
 estimation of the robot position and orientation denoted by
-$\hat{\mathbf{x}}$. From this estimation, an error is estimated and
+$\hat{\mathbf{x}}$. From this estimation, an error is computed and
 added to the original trajectory component by component using a
-proportional gain, i.e.\ $k_x$, $k_y$, $k_{\theta}$ on the figure.
+proportional gain, i.e.\ $k_x$, $k_y$, $k_{r_z}$ on the figure.
 
 
 \begin{figure}[ht!]
   \begin{center}
     \begin{tikzpicture}[x=.40\textwidth,y=2.5cm]
 
-      \path node (plus) at (-0.4,0) [shape=rectangle,draw,color=white]
+      \path node (plus) at (-0.45,0) [shape=rectangle,draw,color=white]
             {\color{black} $\bigoplus$};
 
       \path node (robot) at (-0.15,0)
@@ -98,33 +99,37 @@ proportional gain, i.e.\ $k_x$, $k_y$, $k_{\theta}$ on the figure.
       \path node (errorcomp) at (-0.15,0.6)
             [shape=rectangle,draw,label=185:$\mathbf{\delta \mathbf{x}}$]
             {$\begin{array}{c} 
-                k_x \Delta x\\
-                k_y \Delta y\\
-                k_{\theta} \Delta \theta\end{array}$};
+                k_x (x^{ref} - \hat{x})\\
+                k_y (y^{ref} - \hat{y})\\
+                k_{r_z} (r_z^{ref} - \hat{r_z})\end{array}$};
 
-      \draw[-] (-0.4,0.6) -- (errorcomp.west);
-      \draw[->] (-0.4,0.6) -- (-0.4,0.07);
+      \draw[-] (-0.45,0.6) -- (errorcomp.west);
+      \draw[->] (-0.45,0.6) -- (-0.45,0.07);
 
-      \draw[-] (errorcomp.east) -- (0.1,0.6);
+      \draw[->] (0.1,0.6) -- (errorcomp.east);
       \draw[-] (0.1,0.6) -- (0.1,0.);
       \draw[->] (robot.east) -- (0.2,0.);
 
-      \draw[->] (-0.4,0.) -- (robot.west);
+      \draw[->] (-0.45,0.) -- (robot.west);
 
-      \draw[->] (-0.6,0) -- (-0.424,0.) node [above left]
-           {$\mathbf{\dot{\mathbf{x}}}$};
+      \draw[->] (-0.6,0.) -- (-0.474,0.) node [above left]
+           {$\mathbf{\dot{\mathbf{x}^{\text{ref}}}}$};
 
-      \draw[->] (-0.6,0.7) -- (errorcomp.160) node [above left]
+      \draw[->] (-0.6,0.8) -- (errorcomp.160) node [above left]
            {$\mathbf{x}^{\text{ref}}$};
     \end{tikzpicture}
   \end{center}
-  \caption{Naive correction system for a humanoid robot. $\mathbf{x}$,
-    $\mathbf{\dot{x}}$ and $\mathbf{\hat{x}}$ are respectively the
-    current planned robot position, velocity and position estimated by
-    an external localization system. The planned control
-    $\mathbf{\dot{x}}$ is rectified by summing $\delta \mathbf{x}$ a
-    correction directly computed by the position error of the waist
-    between the plan and the perception. \label{fig:system}}
+  \caption{Naive correction system for a humanoid
+    robot. $\mathbf{x}^{\text{ref}} = (x^{\text{ref}}, y^{\text{ref}},
+    r_z^{\text{ref}})$, $\mathbf{\dot{x}^{\text{ref}}} =
+    (\dot{x}^{\text{ref}}, \dot{y}^{\text{ref}},
+    \dot{r_z}^{\text{ref}})$ and $\mathbf{\hat{x}} = (\hat{x},
+    \hat{y}, \hat{r_z})$ are respectively the current planned robot
+    position, velocity and position estimated by an external
+    localization system. The planned control $\mathbf{\dot{x}}$ is
+    rectified by summing $\delta \mathbf{x}$ a correction directly
+    computed by the position error of the waist between the plan and
+    the perception. \label{fig:system}}
 \end{figure}
 
 
@@ -145,13 +150,16 @@ remaining in the convex hull of the contact points of the feet on the ground:
 
 
 \begin{equation} \label{eq:zmp1}
-  \mathbf{z} = \mathbf{x} + \frac{1}{m(\ddot{z}_c + g)}\left(\begin{array}{ccc} 0 &-1 &0\\1 &0 &0\end{array}\right) \mathbf{\dot{\sigma}} - \frac{z_c}{\ddot{z}_c + g} \ddot{\mathbf{x}}
+  \mathbf{z} = \mathbf{x} + \frac{1}{m(\ddot{z}_c +
+    g)}\left(\begin{array}{ccc} 0 &-1 &0\\1 &0 &0\end{array}\right)
+    \mathbf{\dot{\textbf{L}}} - \frac{z_c}{\ddot{z}_c + g}
+    \ddot{\mathbf{x}}
 \end{equation}
 where $z_c$ is the height of the center of mass with respect to the
 ground, $m$ is the mass of the robot, $g$ is the gravity constant
 \mbox{$\mathbf{x}=(x_c,y_c)$} is the projection of the center mass of
-the robot on the ground and $\mathbf{\sigma}$ is the angular momentum
-of the robot about the center of mass.
+the robot on the ground and $\textbf{L}$ is the angular momentum of
+the robot about the center of mass.
 
 Naively applying a correction of the robot waist trajectory as
 suggested by Fig.~\ref{fig:system} induces a perturbation of the
@@ -181,10 +189,11 @@ pressure trajectory according to the same relation:
 Using the simplified linear model, computing a trajectory correction is thus
 the same problem as computing a dynamically balanced trajectory.
 
-However, if the initial trajectory has been computed using a more complex
-dynamic model, computing a trajectory correction using the linear model implies
-that approximation is performed only on the correction and may result in
-trajectories of better quality from a dynamic balance point of view.
+However, if the initial trajectory has been computed using the exact
+multi-body model \cite{FIXME}, computing a trajectory correction using
+the linear model implies that approximation is performed only on the
+correction and may result in trajectories of better quality from a
+dynamic balance point of view.
 
 \paragraph{Corrected trajectory singularities}
 As the waist is only locally fully actuated, it is important to compute
@@ -198,13 +207,13 @@ to be unable to recompute the joints values due to the robot
 mechanical limits.
 
 
-From this discussion, it appears clearly that these two drawbacks
-makes the naive solution unsatisfying. \textcolor{red}{Therefore,
+From this discussion, it appears clearly that these two drawbacks make
+the naive solution unsatisfactory. \textcolor{red}{Therefore,
   correcting a humanoid robot trajectory cannot be solved by
   considering it as a mobile robot: a new strategy is required to
-  handle humanoids specificities.}  To solve these issues, a better
+  handle humanoids properties.}  To solve these issues, a better
 control scheme allowing larger corrections and more suited to humanoid
-robotics will be introduced in the next section.
+robots will be introduced in the next section.
 
 
 \FloatBarrier
