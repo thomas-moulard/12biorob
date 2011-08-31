@@ -299,14 +299,15 @@ compromising the overall trajectory quality.
 
 
 The linearized inverse pendulum model allows the computation of the
-center of mass trajectory $x(t)$ given a ZMP trajectory $z(t)$ by
-solving Eq.~(\ref{eq:zmp1}). Considering $r$ a polynomial
-depending only of $z$, $(V_x, V_y, W_x, W_y)$ free parameters used
-to constrain the initial position and velocity of the center of mass,
-a general following form of a polynomial center of mass trajectory is:
+center of mass trajectory $\mathbf{c}(t)$ given a ZMP trajectory
+$\mathbf{z}(t)$ by solving Eq.~(\ref{eq:zmp1}). Considering $\mathbf{r}$ a
+polynomial depending only of $\mathbf{z}$, $(V_x, V_y, W_x, W_y)$ free
+parameters used to constrain the initial position and velocity of the
+center of mass, a general following form of a polynomial center of
+mass trajectory is:
 
 \begin{equation} \label{eq:zmpsol}
-  \mathbf{x}(t) = \cosh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{V} + \sinh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{W} + \mathbf{r}(t)
+  \mathbf{c}(t) = \cosh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{V} + \sinh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{W} + \mathbf{r}(t)
 \end{equation}
 
 Given the formulation in Eq.~(\ref{eq:zmpsol}), it is possible to
@@ -315,7 +316,7 @@ continuously modify the center of mass trajectory to make it follow
 trajectory can be expressed as the sum of two polynomials:
 
 \begin{equation} \label{eq:zmpsolcor}
-  \bar{\mathbf{x}}(t) = \cosh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{V} +
+  \bar{\mathbf{c}}(t) = \cosh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{V} +
   \sinh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{W} + \mathbf{r}(t) + \mathbf{\Delta}(t)
 \end{equation}
 
