@@ -295,7 +295,7 @@ The correction is computed by considering the simplified model
 introduced in section \ref{problem}. Hence, no hypothesis is done on
 the strategy used to plan the reference trajectories. One interest of
 this approach is to totally dissociate the planning and correction
-algorithms. To compute a small perturation the simplified model is
+algorithms. To compute a small perturbation the simplified model is
 sufficient. It allows extremely reactive correction without
 compromising the overall trajectory quality.
 
@@ -596,6 +596,19 @@ perturbation is $\pm 0.1 \mathrm{rad}$ every two steps.
     and invalid steps by black rectangles.
     \label{fig:stepvalid}}
 \end{figure}
+
+
+\begin{figure*}[!t]
+  \begin{center}
+    \includegraphics[width=0.85\textwidth]{fig/demo.jpg}
+  \end{center}
+  \caption{HRP-2 walking in a cluttered environment while avoiding
+    obstacles. The final position is reached with a precision of $\pm
+    3\mathrm{cm}$. The final error is the consequence of both noise in
+    the robot position estimation and drifts in the two last steps
+    which happen too late to be not compensated. \label{fig:scenario}}
+\end{figure*}
+
 
 
 Secondly, the new step is validated. The decision is based on the

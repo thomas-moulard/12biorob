@@ -79,7 +79,7 @@ naive approach is not sufficient.
 Fig.~\ref{fig:system} depicts what would be a mobile-robot closed loop
 tracking system applied to a humanoid robot. The reference trajectory
 $\gamma$ would be modified by a feedback provided by some external
-localization system integrated to the robot and prodiving an
+localization system integrated to the robot and providing an
 estimation of the robot position and orientation denoted by
 $\hat{\mathbf{x}}$. From this estimation, an error is computed and
 added to the original trajectory component by component using a
@@ -190,7 +190,7 @@ Using the simplified linear model, computing a trajectory correction is thus
 the same problem as computing a dynamically balanced trajectory.
 
 However, if the initial trajectory has been computed using the exact
-multi-body model \ref{eq:zmp1}, computing a trajectory correction
+multi-body model Eq.~(\ref{eq:zmp1}), computing a trajectory correction
 using the linear model implies that approximation is performed only on
 the correction and may result in trajectories of better quality from a
 dynamic balance point of view.
@@ -208,12 +208,11 @@ mechanical limits.
 
 
 From this discussion, it appears clearly that these two drawbacks make
-the naive solution unsatisfactory. \textcolor{red}{Therefore,
-  correcting a humanoid robot trajectory cannot be solved by
-  considering it as a mobile robot: a new strategy is required to
-  handle humanoids properties.}  To solve these issues, a better
-control scheme allowing larger corrections and more suited to humanoid
-robots will be introduced in the next section.
+the naive solution unsatisfactory. Therefore, correcting a humanoid
+robot trajectory cannot be solved by considering it as a mobile robot:
+a new strategy is required to handle humanoids properties. To solve
+these issues, a better control scheme allowing larger corrections and
+more suited to humanoid robots will be introduced in the next section.
 
 
 \FloatBarrier
