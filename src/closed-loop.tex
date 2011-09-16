@@ -332,14 +332,24 @@ trajectory can be expressed as the sum of two polynomials:
 \end{equation}
 
 To apply smoothly the correction from $t_1$ to $t_2$, several
-constraints have to be respected:
+constraints expressed in Eq.~\ref{eq:cst} have to be respected.
+$\delta \mathbf{x}_x$ and $\delta \mathbf{x}_y$ are respectively the
+$x$ and $y$ components of the 2d rigid transformation $\delta
+\mathbf{x}$.
+
 \begin{equation}
 \begin{aligned}
   \mathbf{\Delta}(t_1) &= 0\\
-  \mathbf{\Delta}(t_2) &= \delta \mathbf{x}\\
+  \mathbf{\Delta}(t_2) &= \left(
+  \begin{array}{c}
+    \delta \mathbf{x}_x \\
+    \delta \mathbf{x}_y
+  \end{array}
+  \right)\\
   \frac{\partial \mathbf{\Delta}}{\partial t}(t_1) = \frac{\partial
     \mathbf{\Delta}}{\partial t}(t_2) &= 0
 \end{aligned}
+\label{eq:cst}
 \end{equation}
 
 \begin{figure}[ht!]
