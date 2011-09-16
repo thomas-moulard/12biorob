@@ -5,7 +5,7 @@ A \emph{robot} is a kinematic chain the configuration of which is
 denoted by \mbox{$q \in \mathcal{C}$}, where $\mathcal{C}$ is the
 robot configuration space.
 
-The robot position is represented by the $x$ component, $y$ component
+The robot position is represented by the $x$, $y$ components
 and yaw rotation $r_z$ of a reference body in the 3D space and is
 denoted \mbox{$\mathbf{x} \in \text{SE}(2)$, $\text{SE}(2)$} the rigid
 motions in the 2D space.  The height $z$, roll $r_x$ and pitch $r_y$
@@ -27,7 +27,7 @@ defines the robot position. Therefore the robot configuration is:
 
 Therefore a \emph{trajectory} is a continuous function $\gamma$
 associating to each point of time of the interval
-\mbox{$[t_{\text{min}}, t_{\text{max}}]$} to a particular robot
+\mbox{$[t_{\text{min}}, t_{\text{max}}]$} a particular robot
 configuration \mbox{$\textbf{q}(t)$}:
 
 \begin{equation} \label{eq:traj}
@@ -47,10 +47,6 @@ A \emph{rigid transformation} is
   \end{aligned}
 \end{equation}
 
-
-An \emph{auto-collision} occurs when the robot collides with
-itself. The set of all configurations in autocollision is called
-\mbox{$\mathcal{Q}_{\text{col}}$}.
 
 Walking is a sequence of one or many \emph{footstep(s)}. At the
 beginning, both feet are on the floor. This phase is called
@@ -135,9 +131,9 @@ proportional gain, i.e.\ $k_x$, $k_y$, $k_{r_z}$ on the figure.
 
 This system provides an updated trajectory of the waist taking into
 account execution error through a feedback loop. As long as the
-humanoid robot has at least one contact point with the floor, the
-waist becomes locally fully actuated and this correction can be applied
-as long as $\mathbf{q}_{\text{int}}$, the joint values are recomputed
+humanoid robot has at least one foot on the floor, the waist becomes
+locally fully actuated and this correction can be applied as long as
+$\mathbf{q}_{\text{int}}$, the joint values are recomputed
 accordingly.
 
 
@@ -210,9 +206,9 @@ mechanical limits.
 From this discussion, it appears clearly that these two drawbacks make
 the naive solution unsatisfactory. Therefore, correcting a humanoid
 robot trajectory cannot be solved by considering it as a mobile robot:
-a new strategy is required to handle humanoids properties. To solve
-these issues, a better control scheme allowing larger corrections and
-more suited to humanoid robots will be introduced in the next section.
+a new strategy is required. To solve these issues, a better control
+scheme allowing larger corrections and more suited to humanoid robots
+will be introduced in the next section.
 
 
 \FloatBarrier

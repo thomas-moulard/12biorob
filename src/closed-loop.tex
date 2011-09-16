@@ -25,7 +25,7 @@ The trajectory generator provides two reference data: the footstep
 sequence, a set of footsteps $S_i$ such as \mbox{$0 \leq i \leq
   n^{\text{step}}$} and a whole-body trajectory \mbox{$\gamma(t \in
   [t_{\text{min}}, t_{\text{max}}]) \in \mathcal{C}$}. One advantage
-of the proposed control scheme is to alter the future footsteps
+of the proposed control scheme is to alter the future footstep
 positions to avoid singularities. Given a known perturbation of the
 footstep sequence, it is then possible to deduce the correction that
 should be applied to the feet and center of mass trajectories. Once
@@ -48,7 +48,10 @@ Algorithm~\ref{fig:control_loop} and can be summarized as:
 \item regenerate the joints trajectories. This step is denoted by
   \mbox{$\gamma \bigoplus \delta \gamma$} in the algorithm. The
   \mbox{$\gamma \bigoplus \delta \gamma$} operation returns $\gamma$
-  altered by the rigid transformation \mbox{$\delta \gamma$}.
+  altered by the rigid transformation \mbox{$\delta \gamma$}. $\delta
+  \gamma$ is the perturbation applied to the whole-body trajectory and
+  is not directly computed as the inverse geometry is directly applied
+  on the updated body positions.
 \end{enumerate}
 
 
@@ -65,7 +68,7 @@ Algorithm~\ref{fig:control_loop} and can be summarized as:
     \IF {the perturbation $\delta \gamma$ can be applied}
     \STATE $\forall t \in [t_{\text{current}}, t_{\text{max}}],
     \gamma(t) \leftarrow \gamma(t) \bigoplus \delta \gamma(t)$
-    \STATE $t_{\text{next}} \leftarrow t_{\text{current}} + 2 T_{\text{step}}$
+    \STATE $t_{\text{next\_correction}} \leftarrow t_{\text{current}} + 2 T_{\text{step}}$
     \ENDIF
     \ENDIF
     \STATE $\mathbf{q} \leftarrow \gamma(t_{\text{current}})$
@@ -87,10 +90,10 @@ the execution. This produces a noise which may perturb the
 control scheme. The localization system can also fail to provide an
 estimation or even sometimes provide aberrant values.
 
-Secondly, an error $\mathbf{\delta \mathbf{x}}$ is computed by comparing the
-planned waist position and the estimation of the waist position. A
-threshold is applied to this value to bound the applied
-corrections. In practice, it also filters outliers and the noise
+Secondly, an error $\mathbf{\delta \mathbf{x}}$ is computed by
+comparing the planned and estimated position of the tracked reference
+body. A threshold is applied to this value to bound the applied
+corrections. In practice, it also filters out outliers and the noise
 that the localization system may introduce in the system.
 
 
@@ -215,7 +218,7 @@ that the localization system may introduce in the system.
 
 Then, the relative position of the next footstep w.r.t. to the current
 one is changed to compensate the perceived
-error. Fig.~\ref{fig:footstepreplan} illustrates this mechanism.
+error. Fig.~\ref{fig:footstepreplan} illustrates this process.
 
 
 From this point, smooth trajectories can be regenerated for feet and
@@ -371,7 +374,7 @@ constraints have to be respected:
     trajectories. \label{fig:transition}}
 \end{figure}
 
-These four constraints determines the polynomial four parameters
+These four constraints determine the polynomial four parameters
 leading to the curve illustrated by Fig.~\ref{fig:transition}.
 
 
@@ -451,12 +454,12 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
 This reshapes the center of mass trajectory by taking advantage of the
 linear formulation of the simplified model. Additionally, the feet
 trajectories are modified to reach the corrected positions at the end
-of the step. The smooth correction is also obtained by using a
-third-order degree polynomial with similar constraints: initial
-position remains as before, the goal position must fit the corrected
-position and the velocity of the correction is equal to zero at the
-beginning and the end of the transition. Fig.~\ref{fig:traj}
-compares resulting trajectories before and after the correction.
+of the step. The smooth correction is also obtained by using a third
+degree polynomial with similar constraints: initial position remains
+as before, the goal position must fit the corrected position and the
+velocity of the correction is equal to zero at the beginning and the
+end of the transition. Fig.~\ref{fig:traj} compares resulting
+trajectories before and after the correction.
 
 
 These three corrections must be executed in the correct order: as
@@ -467,7 +470,7 @@ one. In that case the correction of the left foot is progressively
 applied during the single support phase. During the ZMP shift of this
 step, the center of mass correction is also applied. Then, during the
 next step, the correction of the right foot is applied. The timeline
-of the correction is illustrated by \ref{fig:traj}.
+of the correction is illustrated by Fig.~\ref{fig:traj}.
 
 
 \vspace{0.3cm}
@@ -627,8 +630,8 @@ If a correction is invalidated, another one is computed during the
 next double support phase. In practice, the estimated error during the
 next step will be close to the current estimation, in particular the
 sign (i.e. direction) of the error will remain the same. As the flying
-foot will change the delayed correction has a high chance of being
-accepted.
+foot will change the delayed correction has a high probability of
+being accepted.
 
 
 This naive system has been empirically validated. However, it prevents

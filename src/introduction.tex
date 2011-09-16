@@ -9,7 +9,7 @@ legged robots, although these machines are also prone to execution
 errors while moving.
 
 Previous experiments such as \cite{11humanoids.baudouin} illustrate
-how imprecise can be trajectory following on a humanoid robot. After
+how imprecise trajectory following on a humanoid robot can be. After
 executing a five meters long trajectory, the difference between the
 planned and real position can reach $0.4 \textrm{m}$. Such an error
 cannot be ignored anymore and invalidate the whole planning
@@ -50,7 +50,7 @@ the movement for instance.
 
 
 
-Due to all these factors, validating a complex movement remains a
+For all theses reasons, validating a complex movement remains a
 computationally expensive operation. Therefore, an alternative
 solution to online replanning and regeneration of the walking
 trajectory such as \cite{11icra.dimitrov, 10ar.herdt,
@@ -75,7 +75,7 @@ a motion capture system has been used to close the loop and evaluate
 the execution errors.
 
 This allowed HRP-2 humanoid robot to perform precise and/or long
-locomotion tasks where usual open loops approaches would have drifted
+locomotion tasks where usual open loop approaches would have drifted
 so much that the task would have failed.
 
 
@@ -105,7 +105,7 @@ position outside the obstacle but additional efforts are required
 during the motion planning step. To finish, even if fast replanning is
 possible, randomized planning such as RRT-based methods cannot be used
 safely in a real-time context as they cannot guarantee to compute a
-solution within in a determined time frame. In
+solution within a determined time frame. In
 \cite{11humanoids.baudouin}, when a replanning is required, the three
 next steps cannot be modified to avoid discontinuities in the robot
 trajectory. It means that the correction cannot be as reactive as it
