@@ -81,14 +81,14 @@ Algorithm~\ref{fig:control_loop} and can be summarized as:
 \end{algorithm}
 
 
-First, the robot position $\hat{\mathbf{x}}$ is perceived. The localization
-system will not be detailed in this paper, see \cite{06humanoids.thompson,
-  05humanoids.thompson} for instance for more details. Although common
-limitations of these systems are taken into account. The precision of
-the robot estimation does not decrease over time, but can vary during
-the execution. This produces a noise which may perturb the
-control scheme. The localization system can also fail to provide an
-estimation or even sometimes provide aberrant values.
+First, the robot position $\hat{\mathbf{x}}$ is perceived. The
+localization system will not be detailed in this paper, see
+\cite{08ijhr.stasse, 06humanoids.thompson} for instance for more
+details. Although common limitations of these systems are taken into
+account. The precision of the robot estimation does not decrease over
+time, but can vary during the execution. This produces a noise which
+may perturb the control scheme. The localization system can also fail
+to provide an estimation or even sometimes provide aberrant values.
 
 Secondly, an error $\mathbf{\delta \mathbf{x}}$ is computed by
 comparing the planned and estimated position of the tracked reference
@@ -236,6 +236,12 @@ robot is in the double support phase. Indeed starting a correction in
 the middle of a step would be dangerous and starting a correction
 while another correction is being applied would lead to erroneous
 results.
+
+
+Previous works such as \cite{04humanoids.harada, 07icra.morisawa} aim
+at allowing sudden changes in the robot trajectory. The proposed
+control scheme is different and aim at following as closely as
+possible a preplanned trajectory.
 
 
 \vspace{0.3cm}
@@ -635,10 +641,12 @@ being accepted.
 
 
 This naive system has been empirically validated. However, it prevents
-some valid corrected steps. In the future, this will be replaced by an
-off-line validation of the steps as described by
-\cite{10icra.perrin}. This will provide a sound and very fast method as
-the validity checking will be equivalent to reading a value in memory.
+some valid corrected steps. In the future, this will be replaced by a
+fast on-line steps validation algorithm described by
+\cite{10icra.perrin}. This algorithm provides fast step validation by
+precomputing feasibility regions offline. This will provide a sound
+and very fast method as the validity checking will be equivalent to
+reading a value in memory.
 
 \FloatBarrier
 
