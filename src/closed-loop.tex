@@ -112,19 +112,19 @@ that the localization system may introduce in the system.
       \foreach \dy in {0., 1.}
                {
                  \draw[pattern=dots,rounded corners]
-                 (0.,\dy) rectangle (0.+\w,\dy+\h);
+                 (0.,0.25+\dy) rectangle (0.+\w,0.25+\dy+\h);
 
                  \draw[rotate=-10,rounded corners]
-                 (\noisex,\noisey + \dy) rectangle
-                 (\noisex+\w,\noisey+\dy+\h);
+                 (\noisex,0.25+\noisey + \dy) rectangle
+                 (\noisex+\w,0.25+\noisey+\dy+\h);
 
-                 % right step planned
+                 % left step planned
                  \filldraw[pattern=north east lines] (
                  0. + 0.1   * \w,
-                 \dy + 0.225 * \h)
+                 0.5 + \dy + 0.225 * \h)
                  rectangle (
                  0. + 0.1   * \w + \ws,
-                 \dy + 0.225 * \h + \hs);
+                 0.5 + \dy + 0.225 * \h + \hs);
 
                  % right step planned
                  \filldraw[pattern=north east lines] (
@@ -137,10 +137,10 @@ that the localization system may introduce in the system.
                  % left step real
                  \draw[rotate=-10] (
                  \noisex + 0.1   * \w,
-                 \noisey + \dy + 0.225 * \h)
+                 0.5 + \noisey + \dy + 0.225 * \h)
                  rectangle (
                  \noisex + 0.1   * \w + \ws,
-                 \noisey + \dy + 0.225 * \h + \hs);
+                 0.5 + \noisey + \dy + 0.225 * \h + \hs);
 
                  % right step real
                  \draw[rotate=-10] (
@@ -160,8 +160,8 @@ that the localization system may introduce in the system.
                };
 
                \draw[smooth,rounded corners=1ex,-,thick]
-               (0.75 * \w + \ws/2. + 0.03,\h/2. + 0.15) --
-               (0.75 * \w + \ws/2. + 0.03 + 0.03,\h/2. + 0.15 + 0.4) --
+               (0.75 * \w + \ws/2. + 0.03,0.15+\h/2. + 0.15) --
+               (0.75 * \w + \ws/2. + 0.03 + 0.03,0.15+\h/2. + 0.15 + 0.4) --
                (0.75 * \w + \ws/2.,1.+\h/2.)
                node[at start,right]
                {
@@ -169,44 +169,44 @@ that the localization system may introduce in the system.
                };
 
                \draw[smooth,rounded corners=1ex,<->,thick]
-               (-0.02, 0.45) --
-               (-0.03, 0.35) --
-               (-0.02, 0.25)
+               (-0.02, 0.25+0.45) --
+               (-0.03, 0.25+0.35) --
+               (-0.02, 0.25+0.25)
                node[at start,left]
                {
                  $\Delta r_z$
                };
 
                \draw[smooth,rounded corners=1ex,<->,thick]
-               (-0.02, 0.) --
-               (-0.02, 0.15)
+               (-0.02, 0.25+0.) --
+               (-0.02, 0.25+0.15)
                node[midway,left]
                {
                  $\Delta x$
                };
 
                \draw[smooth,rounded corners=1ex,<->,thick]
-               (0., -0.1) --
-               (0.03, -0.1)
+               (0., 0.25-0.1) --
+               (0.03, 0.25-0.1)
                node[midway,below]
                {
                  $\Delta y$
                };
 
-               \path node (txt1) at (0.075+\w,0.)
+               \path node (txt1) at (0.075+\w,0.25+0.)
                      [shape=rectangle,draw,color=white]
                      {\color{black} $\mathbf{x}$};
 
-               \path node (txt1) at (0.08+\w,0.3)
+               \path node (txt1) at (0.08+\w,0.25+0.3)
                      [shape=rectangle,draw,color=white]
                      {\color{black} $\mathbf{\hat{x}}$};
 
     \end{tikzpicture}
   \end{center}
-  \caption{Correction of the next step due to a position error of the
-    robot waist. Dotted rectangles are the planned positions
-    $\mathbf{x}$ of the robot waist before and after the next
-    step. Non-dotted rectangles corresponds to the robot localization
+  \caption{Correction of the next step due to a position error. Dotted
+    rectangles are the planned positions $\mathbf{x}$ of the robot
+    waist and feet before and after the next step. Non-dotted
+    rectangles corresponds to the robot localization
     $\mathbf{\hat{x}}$. Error w.r.t to axis X, Y and yaw rotation is
     \mbox{$(\Delta x, \Delta y, \Delta r_z) = \delta \mathbf{x}$,
       $\gamma$} the reference trajectory and $\delta \gamma$ the
