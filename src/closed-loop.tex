@@ -1,12 +1,12 @@
 \section{Closed-loop trajectory following for humanoid robots}
 \label{closedloop}
-
-
+%
+%
 This section proposes a control system for closed-loop trajectory
 tracking while taking into consideration humanoid robots
 specificities.
-
-
+%
+%
 Closed-loop trajectory tracking consists in following a precomputed
 trajectory while compensating for execution errors. Systems are often
 composed of four components:
@@ -19,8 +19,8 @@ composed of four components:
 \item and a component reshaping the planned trajectory to compensate
   for the above error.
 \end{enumerate}
-
-
+%
+%
 The trajectory generator provides two reference data: the footstep
 sequence, a set of footsteps $S_i$ such as \mbox{$0 \leq i \leq
   n^{\text{step}}$} and a whole-body trajectory \mbox{$\gamma(t \in
@@ -31,8 +31,8 @@ footstep sequence, it is then possible to deduce the correction that
 should be applied to the feet and center of mass trajectories. Once
 those trajectories are computed, inverse geometry can be used to
 regenerate the joints trajectories.
-
-
+%
+%
 One iteration of the control loop is described by
 Algorithm~\ref{fig:control_loop} and can be summarized as:
 \begin{enumerate}
@@ -53,8 +53,8 @@ Algorithm~\ref{fig:control_loop} and can be summarized as:
   is not directly computed as the inverse geometry is directly applied
   on the updated body positions.
 \end{enumerate}
-
-
+%
+%
 \begin{algorithm}
   \begin{algorithmic}
     \REQUIRE {$\gamma$, $t_{\text{current}}, t_{\text{next\_correction}}$}
@@ -79,8 +79,8 @@ Algorithm~\ref{fig:control_loop} and can be summarized as:
     be applied at
     $t_{\text{next\_correction}}$). \label{fig:control_loop}}
 \end{algorithm}
-
-
+%
+%
 First, the robot position $\hat{\mathbf{x}}$ is perceived. The
 localization system will not be detailed in this paper, see
 \cite{08ijhr.stasse, 06humanoids.thompson} for instance for more
@@ -89,14 +89,14 @@ account. The precision of the robot estimation does not decrease over
 time, but can vary during the execution. This produces a noise which
 may perturb the control scheme. The localization system can also fail
 to provide an estimation or even sometimes provide aberrant values.
-
+%
 Secondly, an error $\mathbf{\delta \mathbf{x}}$ is computed by
 comparing the planned and estimated position of the tracked reference
 body. A threshold is applied to this value to bound the applied
 corrections. In practice, it also filters out outliers and the noise
 that the localization system may introduce in the system.
-
-
+%
+%
 \begin{figure}[ht!]
   \begin{center}
     \begin{tikzpicture}[x=.40\textwidth,y=2.5cm]
@@ -213,21 +213,21 @@ that the localization system may introduce in the system.
     corrected trajectory reaching the planned
     step. \label{fig:footstepreplan}}
 \end{figure}
-
-
-
+%
+%
+%
 Then, the relative position of the next footstep w.r.t. to the current
 one is changed to compensate the perceived
 error. Fig.~\ref{fig:footstepreplan} illustrates this process.
-
-
+%
+%
 From this point, smooth trajectories can be regenerated for feet and
 center of mass. To ensure smoothness, the trajectory correction is
 progressively applied during the next two steps. To finish, joint
 values are recomputed using these new reference trajectories.
-
-
-
+%
+%
+%
 Additionally, a test is added to check that a correction can be
 computed for the current time $t_{\text{current}}$. A correction can
 be applied if no correction is being applied,
@@ -236,70 +236,71 @@ robot is in the double support phase. Indeed starting a correction in
 the middle of a step would be dangerous and starting a correction
 while another correction is being applied would lead to erroneous
 results.
-
-
+%
+%
 Previous works such as \cite{04humanoids.harada, 07icra.morisawa} aim
 at allowing sudden changes in the robot trajectory. The proposed
 control scheme is different and aim at following as closely as
 possible a preplanned trajectory.
-
-
-\vspace{0.3cm}
+%
+%
+%\vspace{0.3cm}
 \paragraph{Estimation of the position error}
-
+%
 We make the assumption that an external system provides
 \mbox{$\hat{\mathbf{x}} \in \text{SE}(2)$}, an estimation of the
 current robot position.
-
+%
 If $\mathbf{x} \in \text{SE}(2)$ is the robot planned position and
 $\hat{\mathbf{x}} \in \text{SE}(2)$ the robot localization, the
-position error is defined by:
-
-\begin{equation} \label{eq:errorpos}
-  \mathbf{\delta x} = \mathbf{x} . \hat{\mathbf{x}}^{-1}
-\end{equation}
-
-In Eq. (\ref{eq:errorpos}), $\mathbf{\delta x}(t)$ can be
+position error is defined by: $\mathbf{\delta x} = \mathbf{x} . \hat{\mathbf{x}}^{-1}$\label{eq:errorpos}
+%
+%\begin{equation} \label{eq:errorpos}
+%  \mathbf{\delta x} = \mathbf{x} . \hat{\mathbf{x}}^{-1}
+%\end{equation}
+%
+%In Eq. (\ref{eq:errorpos}), $\mathbf{\delta x}(t)$ can be
+In the previous equation, $\mathbf{\delta x}(t)$ can be
 interpreted as the planned robot position with respect to the current
 robot position at time $t$. By consequence, at the beginning of the
-trajectory $t_{\text{min}}$, the error is always equal to zero:
-
-\begin{equation} \label{eq:errorpos_prop}
-  \delta \mathbf{x}(t_{\text{min}}) = 0
-\end{equation}
-
-\vspace{0.3cm}
+trajectory $t_{\text{min}}$, the error is always equal to zero: $\delta \mathbf{x}(t_{\text{min}}) = 0$ \label{eq:errorpos_prop}
+%
+%\begin{equation} \label{eq:errorpos_prop}
+%  \delta \mathbf{x}(t_{\text{min}}) = 0
+%\end{equation}
+%
+%\vspace{0.3cm}
 \paragraph{Footstep sequence modification}
-
-
+%
+%
 Given a position error of the waist, it is possible to alter the
 remaining steps in the footstep sequence to absorb this offset.
-
+%
 The purpose of this step is to take into consideration that the
 previous step has not been executed correctly, leading to a different
 relative position than the one which has been initially planned. To
 cancel the error, the next footsteps positions will be modified
 so that the robot will step in the planned locations.
-
-
+%
+%
 The footstep positions are \mbox{$S \in
   \text{SE}(2)^{n^\text{step}}$}. Let consider $\mathbf{\delta {x}}$,
 the current position error, \mbox{$S^{\text{future}} \subset S$} the
 steps which have not been played yet. The footstep positions will be
-changed according to the following computation:
-
-\begin{equation} \label{eq:footstepmodif}
-  \forall s \in S^{\text{future}}, s \gets \mathbf{\delta {x}} . s
-\end{equation}
-
-
-\vspace{0.3cm}
+changed according to the following computation: $\forall s \in S^{\text{future}}, s \gets \mathbf{\delta {x}} . s$ \label{eq:footstepmodif}
+%
+%\begin{equation} \label{eq:footstepmodif}
+%  \forall s \in S^{\text{future}}, s \gets \mathbf{\delta {x}} . s
+%\end{equation}
+%
+%
+%\vspace{0.3cm}
 \paragraph{Whole-body trajectories modification}
-
+%
 A new placement of the next feet has been computed. It is now necessary
 to modify the two feet and the center of mass trajectories
 synchronously to reach the corrected foot prints.
-
+%
 The correction is computed by considering the simplified model
 introduced in section \ref{problem}. Hence, no hypothesis is done on
 the strategy used to plan the reference trajectories. One interest of
@@ -307,8 +308,8 @@ this approach is to totally dissociate the planning and correction
 algorithms. To compute a small perturbation the simplified model is
 sufficient. It allows extremely reactive correction without
 compromising the overall trajectory quality.
-
-
+%
+%
 The linearized inverse pendulum model allows the computation of the
 center of mass trajectory $\mathbf{c}(t)$ given a ZMP trajectory
 $\mathbf{z}(t)$ by solving Eq.~(\ref{eq:zmp1}). Considering $\mathbf{r}$ a
@@ -316,46 +317,45 @@ polynomial depending only of $\mathbf{z}$, $(V_x, V_y, W_x, W_y)$ free
 parameters used to constrain the initial position and velocity of the
 center of mass, a general following form of a polynomial center of
 mass trajectory is:
-
+%
 \begin{equation} \label{eq:zmpsol}
   \mathbf{c}(t) = \cosh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{V} + \sinh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{W} + \mathbf{r}(t)
 \end{equation}
-
+%
 Given the formulation in Eq.~(\ref{eq:zmpsol}), it is possible to
 continuously modify the center of mass trajectory to make it follow
 \mbox{$\bar{\mathbf{z}}(t)$} the corrected trajectory. This new
 trajectory can be expressed as the sum of two polynomials:
-
+%
 \begin{equation} \label{eq:zmpsolcor}
   \bar{\mathbf{c}}(t) = \cosh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{V} +
   \sinh(\sqrt{\frac{g}{z_c}}.t) . \mathbf{W} + \mathbf{r}(t) + \mathbf{\Delta}(t)
 \end{equation}
-
+%
 To apply smoothly the correction from $t_1$ to $t_2$, several
 constraints expressed in Eq.~\ref{eq:cst} have to be respected.
 $\delta \mathbf{x}_x$ and $\delta \mathbf{x}_y$ are respectively the
 $x$ and $y$ components of the 2d rigid transformation $\delta
 \mathbf{x}$.
-
+%
 \begin{equation}
 \begin{aligned}
-  \mathbf{\Delta}(t_1) &= 0\\
+  \mathbf{\Delta}(t_1) &= \frac{\partial \mathbf{\Delta}}{\partial t}(t_1) = \frac{\partial
+    \mathbf{\Delta}}{\partial t}(t_2) = 0\\
   \mathbf{\Delta}(t_2) &= \left(
   \begin{array}{c}
     \delta \mathbf{x}_x \\
     \delta \mathbf{x}_y
   \end{array}
-  \right)\\
-  \frac{\partial \mathbf{\Delta}}{\partial t}(t_1) = \frac{\partial
-    \mathbf{\Delta}}{\partial t}(t_2) &= 0
+  \right)
 \end{aligned}
 \label{eq:cst}
 \end{equation}
-
+%
 \begin{figure}[ht!]
   \begin{center}
 
-    \begin{tikzpicture}[x=.40\textwidth,y=2.5cm]
+    \begin{tikzpicture}[x=.40\textwidth,y=2.cm]%FIXME 2.5
       \def\xmin{0.}
       \def\xmax{1.}
       \def\ymin{0.5}
@@ -389,16 +389,15 @@ $x$ and $y$ components of the 2d rigid transformation $\delta
     transition between feet and center of mass
     trajectories. \label{fig:transition}}
 \end{figure}
-
+%
 These four constraints determine the polynomial four parameters
 leading to the curve illustrated by Fig.~\ref{fig:transition}.
-
-
-\begin{figure*}[ht!]
+%
+%
+\begin{figure}[ht!]
   \begin{center}
     \begin{tikzpicture}
       \begin{axis}[
-          legend style={at={(1.5,1)}, anchor=north},
           xlabel=time ($\mathrm{s}$),
           ylabel=$x$ position ($\mathrm{m}$),
           no markers
@@ -410,14 +409,14 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
         ] table[
           x expr=(\thisrowno{0}-0)*0.005
         ] {dat/feet_follower_feet-follower-com.dat};
-        \addlegendentry{center of mass}
+        \label{comcorr}
         \addplot[
           red,
         ] table[
           x expr=(\thisrowno{0}-0)*0.005,
           y expr=\thisrowno{1}-0.
         ] {dat/feet_follower_correction-com.dat};
-        \addlegendentry{center of mass (corrected)}
+        \label{com}
 
         \addplot[
           blue,
@@ -427,7 +426,8 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
           y index=4,
           x expr=(\thisrowno{0}-0)*0.005
         ] {dat/feet_follower_feet-follower-left-ankle.dat};
-        \addlegendentry{left foot}
+        \label{lfcorr}
+
         \addplot[
           blue
         ] table[
@@ -436,7 +436,7 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
           x expr=(\thisrowno{0}-0)*0.005,
           y expr=\thisrowno{4}-0.
         ] {dat/feet_follower_correction-left-ankle.dat};
-        \addlegendentry{left foot (corrected)}
+        \label{lf}
 
         \addplot[
           green,
@@ -446,7 +446,8 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
           y index=4,
           x expr=(\thisrowno{0}-0)*0.005
         ] {dat/feet_follower_feet-follower-right-ankle.dat};
-        \addlegendentry{right foot}
+        \label{rfcorr}
+
         \addplot[
           green
         ] table[
@@ -455,18 +456,20 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
           x expr=(\thisrowno{0}-0)*0.005,
           y expr=\thisrowno{4}-0.
         ] {dat/feet_follower_correction-right-ankle.dat};
-        \addlegendentry{right foot (corrected)}
+        \label{rf}
       \end{axis}
     \end{tikzpicture}
   \end{center}
   \caption{Evolution, during two steps, of the $x$ position of the
-    center of mass and left foot. Solid curve depicts a step a $0.3
-    \mathrm{m}$ forward. Dashed curve depicts this step with a
-    correction of $0.05 \mathrm{m}$ in the forward
+    center of mass (\ref{com}), left foot (\ref{lf}) and right foot
+    (\ref{rf}). Solid curve depicts a step a $0.3 \mathrm{m}$
+    forward. Dashed curve depicts the center of mass (\ref{comcorr}),
+    left foot (\ref{lfcorr}) and right foot (\ref{rfcorr})
+    trajectories with a correction of $0.05 \mathrm{m}$ in the forward
     direction. \label{fig:traj}}
-\end{figure*}
-
-
+\end{figure}
+%
+%
 This reshapes the center of mass trajectory by taking advantage of the
 linear formulation of the simplified model. Additionally, the feet
 trajectories are modified to reach the corrected positions at the end
@@ -476,8 +479,8 @@ as before, the goal position must fit the corrected position and the
 velocity of the correction is equal to zero at the beginning and the
 end of the transition. Fig.~\ref{fig:traj} compares resulting
 trajectories before and after the correction.
-
-
+%
+%
 These three corrections must be executed in the correct order: as
 stated before a correction is computed during a double support phase
 and applied during the next two steps. We will make the assumption,
@@ -487,34 +490,34 @@ applied during the single support phase. During the ZMP shift of this
 step, the center of mass correction is also applied. Then, during the
 next step, the correction of the right foot is applied. The timeline
 of the correction is illustrated by Fig.~\ref{fig:traj}.
-
-
-\vspace{0.3cm}
+%
+%
+%\vspace{0.3cm}
 \paragraph{Error thresholding and new step feasibility}
-
-
+%
+%
 Correction does not compromise the robot stability. However, any
 correction is not feasible due to the robot mechanical limits and
 auto-collision. Therefore, it is important to bound corrections in
 order to avoid producing infeasible steps. It is also important to
 validate new steps w.r.t to auto-collision.
-
-
+%
+%
 The base hypothesis is that the reference trajectory which has been
 computed off-line is safe i.e.\ stable and without any
 auto-collision. By consequence, the goal is to determine how much this
 initial trajectory can be modified without compromising its safety.
-
+%
 First, a maximum error has been determined empirically. The maximum
 lateral perturbation is $\pm 0.04 \mathrm{m}$ , the maximum forward
 perturbation $\pm 0.05 \mathrm{m}$ and the maximum angular
 perturbation is $\pm 0.1 \mathrm{rad}$ every two steps.
-
+%
 \begin{figure}[ht!]
   \begin{center}
     \begin{tikzpicture}[x=.40\textwidth,y=2.5cm]
       \def\w{0.3}
-      \def\h{0.35}
+      \def\h{0.25}
 
       \def\ws{0.05}
       \def\hs{0.2}
@@ -615,21 +618,21 @@ perturbation is $\pm 0.1 \mathrm{rad}$ every two steps.
     and invalid steps by black rectangles.
     \label{fig:stepvalid}}
 \end{figure}
-
-
-\begin{figure*}[!t]
+%
+%
+\begin{figure}
   \begin{center}
-    \includegraphics[width=0.85\textwidth]{fig/demo.jpg}
+    \includegraphics[width=0.45\textwidth]{fig/demo.jpg}
   \end{center}
   \caption{HRP-2 walking in a cluttered environment while avoiding
     obstacles. The final position is reached with a precision of $\pm
     3\mathrm{cm}$. The final error is the consequence of both noise in
     the robot position estimation and drifts in the two last steps
     which happen too late to be not compensated. \label{fig:scenario}}
-\end{figure*}
-
-
-
+\end{figure}
+%
+%
+%
 Secondly, the new step is validated. The decision is based on the
 relative movement of the first corrected foot. Let consider that, for
 instance, the next moving foot is the left one. The original left foot
@@ -640,26 +643,27 @@ is positive, the new step is accepted. In practice, it means that the
 step is ``pushed'' away and will not induce an auto-collision. On the
 opposite, with the right foot, the step is accepted if the $y$
 component is negative.
-
-
+%
+%
 If a correction is invalidated, another one is computed during the
 next double support phase. In practice, the estimated error during the
 next step will be close to the current estimation, in particular the
 sign (i.e. direction) of the error will remain the same. As the flying
 foot will change the delayed correction has a high probability of
 being accepted.
-
-
+%
+%
 This naive system has been empirically validated. However, it prevents
 some valid corrected steps. In the future, this will be replaced by a
 fast on-line steps validation algorithm described by
-\cite{10icra.perrin}. This algorithm provides fast step validation by
-precomputing feasibility regions offline. This will provide a sound
-and very fast method as the validity checking will be equivalent to
-reading a value in memory.
-
+\cite{10icra.perrin}.
+%This algorithm provides fast step validation by
+%precomputing feasibility regions offline. This will provide a sound
+%and very fast method as the validity checking will be equivalent to
+%reading a value in memory.
+%
 \FloatBarrier
-
+%
 %%% Local Variables:
 %%% ispell-local-dictionary: "english"
 %%% LocalWords:

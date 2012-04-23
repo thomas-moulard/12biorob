@@ -1,13 +1,13 @@
 \section{Experimental results}
 \label{exp}
-
-
+%
+%
 The proposed method has been validated on HRP-2 using the following
 scenarii: the robot walks in a narrow and constrained environment
 while stepping over obstacles. The trajectory length is
 $2.5\mathrm{m}$ and is executed in approximately $40\mathrm{s}$.
-
-
+%
+%
 This setup demonstrates that the execution using this control scheme
 is precise and reliable. The robot reaches its goal position with an
 error of a few centimeters whereas open loop control schemes is off by
@@ -15,8 +15,8 @@ more than a meter. Moreover, the control scheme is reliable: during
 the movement, the localization precision can change, the robot
 position tracking can fail\ldots The control scheme is designed to be
 robust toward these situations.
-
-
+%
+%
 This experiment uses the pattern generator described by
 \cite{10icra.perrin} and the stack of tasks formalism
 \cite{09icar.mansard} to implement the control scheme. The pattern
@@ -24,25 +24,26 @@ generator provides reference trajectories for the center of mass and
 the feet. Trajectory following tasks for these particular bodies are
 then inserted into the control framework. Computing the control such
 as the tasks are satisfied is then realized by the solver.
-
-
+%
+%
 This experiment video is available on the
-web\footnote{\mbox{\url{http://homepages.laas.fr/tmoulard/video/12biorob-tmoulard.mp4}}}. Fig.~\ref{fig:scenario}
+web\footnote{\mbox{\url{http://youtu.be/cUZ0nNiPs70}}}. Fig.~\ref{fig:scenario}
 provides an overview of the scenario: the robot starts on the right
 side and walks toward the left side.
-
-
-The final position precision depends on the localization precision and
-the steps difficulty. In the proposed scenario, there is no occlusion
-in order to ensure us a good localization. On the opposite, the long
-steps as the one executed on this movement are prone to large
-execution errors. In this context, the planned final position is
+%
+%
+%The final position precision depends on the localization precision and
+%the steps difficulty. In the proposed scenario, there is no occlusion
+%in order to ensure us a good localization. On the opposite, the long
+%steps as the one executed on this movement are prone to large
+%execution errors.
+In this context, the planned final position is
 reached with a precision of $\pm 2 \mathrm{cm}$. This trajectory has
 been executed five times consecutively with any obstacle collision.
 Using a different footsteps sequence with smaller steps, the planned
 position can be reached with an error lower than $1 \mathrm{cm}$.
-
-
+%
+%
 %%% Local Variables:
 %%% ispell-local-dictionary: "american"
 %%% LocalWords:

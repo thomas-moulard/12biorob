@@ -25,8 +25,8 @@
 \usepackage{tikz, pgfplots}
 
 \usetikzlibrary{patterns}
-\usetikzlibrary{external}
-\tikzexternalize
+%\usetikzlibrary{external}
+%\tikzexternalize
 
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
@@ -35,18 +35,18 @@
 
 \begin{document}
 \title{Trajectory Following for Legged Robots}
-
+%
 \author{Thomas Moulard, Florent Lamiraux, Olivier Stasse\\
   LAAS-CNRS, Universit\'e de Toulouse\\
   7, avenue du Colonel Roche\\
   31077 Toulouse cedex 4, France\\
   \tt\small thomas.moulard@laas.fr, \tt\small olivier.stasse@laas.fr\\
-}
-
-
+}%
+%
+%
 \maketitle
-
-
+%
+%
 \begin{abstract}
   While robust trajectory following is a well-studied problem on
   mobile robots, the question of how to track accurately a trajectory
@@ -61,33 +61,33 @@
   trajectories in a very reactive manner. Results have been validated
   on the HRP-2 humanoid platform.
 \end{abstract}
-
+%
 \begin{IEEEkeywords}
   Humanoid robots, Motion planning, Robot control
 \end{IEEEkeywords}
-
+%
 \IEEEpeerreviewmaketitle
-
-
+%
+%
 \input{src/introduction}
 \input{src/problem}
 \input{src/closed-loop.tex}
 \input{src/experiment.tex}
 \input{src/conclusion}
-
+%
 %\vfill\break
-
+%
 \section*{Acknowledgment}
-
+%
 This work has been supported by the R-BLINK project,
 ANR-08-JCJC-0075-01.
-
+%
 %\nocite{*}
 \bibliographystyle{latex/IEEEtran}
 \bibliography{IEEEabrv.bib,12biorob-tmoulard.bib}
-
+%
 \end{document}
-
+%
 %%% Local Variables:
 %%% ispell-local-dictionary: "english"
 %%% LocalWords:
