@@ -404,41 +404,48 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
           ]
 
         \addplot[
-          red,
-          dashed
+          mark=x,
+          red
         ] table[
           x expr=(\thisrowno{0}-0)*0.005
         ] {dat/feet_follower_feet-follower-com.dat};
-        \label{comcorr}
+        \label{com}
         \addplot[
+          mark=x,
           red,
+          line width=1.25pt
         ] table[
           x expr=(\thisrowno{0}-0)*0.005,
           y expr=\thisrowno{1}-0.
         ] {dat/feet_follower_correction-com.dat};
-        \label{com}
+        \label{comcorr}
 
         \addplot[
+          mark=*,
           blue,
-          dashed
+          loosely dashed
         ] table[
           x index=0,
           y index=4,
           x expr=(\thisrowno{0}-0)*0.005
         ] {dat/feet_follower_feet-follower-left-ankle.dat};
-        \label{lfcorr}
+        \label{lf}
 
         \addplot[
-          blue
+          mark=*,
+          blue,
+          line width=1.25pt,
+          loosely dashed
         ] table[
           x index=0,
           y index=4,
           x expr=(\thisrowno{0}-0)*0.005,
           y expr=\thisrowno{4}-0.
         ] {dat/feet_follower_correction-left-ankle.dat};
-        \label{lf}
+        \label{lfcorr}
 
         \addplot[
+          mark=triangle*,
           green,
           dashed
         ] table[
@@ -446,25 +453,28 @@ leading to the curve illustrated by Fig.~\ref{fig:transition}.
           y index=4,
           x expr=(\thisrowno{0}-0)*0.005
         ] {dat/feet_follower_feet-follower-right-ankle.dat};
-        \label{rfcorr}
+        \label{rf}
 
         \addplot[
-          green
+          mark=triangle*,
+          green,
+          dashed,
+          line width=1.25pt
         ] table[
           x index=0,
           y index=4,
           x expr=(\thisrowno{0}-0)*0.005,
           y expr=\thisrowno{4}-0.
         ] {dat/feet_follower_correction-right-ankle.dat};
-        \label{rf}
+        \label{rfcorr}
       \end{axis}
     \end{tikzpicture}
   \end{center}
   \caption{Evolution, during two steps, of the $x$ position of the
-    center of mass (\ref{com}), left foot (\ref{lf}) and right foot
-    (\ref{rf}). Solid curve depicts a step a $0.3 \mathrm{m}$
-    forward. Dashed curve depicts the center of mass (\ref{comcorr}),
-    left foot (\ref{lfcorr}) and right foot (\ref{rfcorr})
+    center of mass~(\ref{com}), left foot~(\ref{lf}) and right foot
+    (\ref{rf}). Bold curve depicts a step a $0.3 \mathrm{m}$
+    forward. Dashed curve depicts the center of mass~(\ref{comcorr}),
+    left foot~(\ref{lfcorr}) and right foot~(\ref{rfcorr})
     trajectories with a correction of $0.05 \mathrm{m}$ in the forward
     direction. \label{fig:traj}}
 \end{figure}
